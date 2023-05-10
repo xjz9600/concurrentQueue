@@ -7,7 +7,19 @@ import (
 )
 
 func main() {
-	TestNewSemaphoreConstructor()
+	TestNewLinkedQueue()
+}
+
+func TestNewLinkedQueue() {
+	queue := NewConcurrentLinkedQueue[int]()
+	go func() {
+		queue.EnSequenceQueue(4)
+	}()
+	go func() {
+		time.Sleep(1 * time.Second)
+		queue.Dequeue()
+	}()
+	time.Sleep(5 * time.Second)
 }
 
 func TestNewConstructor() {
